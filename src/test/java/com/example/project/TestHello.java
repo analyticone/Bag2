@@ -11,20 +11,33 @@ import java.io.*;
 
 public class TestHello {
 
-   @Test
-   public void testHelloWorld()
-   {
-     PrintStream originalOut = System.out;
-     ByteArrayOutputStream bos = new ByteArrayOutputStream();
-     System.setOut(new PrintStream(bos));
+	static Bag b;
 
-     // action
-     Hello.main(null);
+	@BeforeAll
+	static void setUpBeforeClass() throws Exception
+	{
+		b = new Bag();
+	}
 
-     // assertion
-     assertEquals("Hello world!\n", bos.toString());
+	@Test
+	void testAdd()
+	{
+		Random rand = new Random();
 
-     // undo the binding in System
-     System.setOut(originalOut);
-   }
+		for (int i = 0; i < 10; i++)
+		{
+			int item = rand.nextInt();
+
+			b.add(item);
+			assertTrue(b.contains(item));
+		}
+		assertTrue(b.size() == 10);
+	}
+   
+	@Test
+	void testContains()
+	{
+		fail("Not yet implemented"); // TODO
+	}
+
 }
